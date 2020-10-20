@@ -88,7 +88,6 @@ class LinkField(BaseField):
             return self.view_template(data=self.data)
 
         self.data = data
-
         if is_url(self.data):
             custom_prefs = self._getCustomPreferences()
             if custom_prefs.get('title', '').startswith('column:'):
@@ -103,7 +102,7 @@ class LinkField(BaseField):
         obj_info = self._get_obj_info(uuid)
         if obj_info.get('title', '').startswith('column:'):
             title_column_id = obj_info['title'].split(':', 1)[1]
-            if title_column_id in storage[index]:
+            if storage and title_column_id in storage[index]:
                 obj_info['title'] = storage[index][title_column_id]
 
         return self.view_template(**obj_info)
